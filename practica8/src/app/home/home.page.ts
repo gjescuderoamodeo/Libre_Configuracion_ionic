@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 
 export class HomePage {
 
+  asignaturas = ["Matemáticas","Lengua","Ciencias","Historia"];
+  alumnos = ["Pepe gutierrez","Juan de la rosa","Miracle Jackson","José José","Felipe II"];
+  alumnos_asignaturas = [];
+
+  alu_elegidos:[];
+
+  a_elegida = "";
+
+
   constructor() {}
+
+  cambiaSelect(event:any){
+    console.log(this.alu_elegidos)
+  }
 
 }

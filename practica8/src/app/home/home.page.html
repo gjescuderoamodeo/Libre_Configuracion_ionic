@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Practica8
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,31 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Practica8</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div id="container" *ngIf="a_elegida==''">
+    <ion-select [(ngModel)]="a_elegida" placeholder="Selecciona una asignatura">
+      <ion-select-option *ngFor="let asignatura of asignaturas" [value]="asignatura"> {{ asignatura }} </ion-select-option>
+    </ion-select>
   </div>
+
+  <!--Alumno-->
+  <div id="container2" (ionChange)="cambiaSelect()" *ngIf="a_elegida!='' && !alu_elegidos?.length">
+    <ion-select [(ngModel)]="alu_elegidos" placeholder="Selecciona alumno/s" [multiple]="true">
+      <ion-select-option *ngFor="let alumno of alumnos" [value]="alumno"> {{ alumno }} </ion-select-option>
+    </ion-select>
+  </div>
+
+  
+  <div id="container3" *ngIf="alu_elegidos?.length">
+  <h2>Asignatura: {{a_elegida}}</h2>
+  <ion-list>
+    <ion-item *ngFor="let alumno_asig of alu_elegidos">
+      <ion-label> {{ alumno_asig }} </ion-label>
+    </ion-item>
+  </ion-list>
+  </div>
+
 </ion-content>
