@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Practica 2
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Practica 2</ion-title>
+    </ion-toolbar>
+  </ion-header>  
+
+  <ion-item>
+    <ion-label position="stacked" [(ngModel)]="apellidos">Apellidos</ion-label>
+    <ion-input></ion-input>
+    <ion-label position="stacked" [(ngModel)]="nombre">Nombre</ion-label>
+    <ion-input></ion-input>
+    <ion-label position="stacked" [(ngModel)]="provincia">Provincia</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+
+  <ion-list>
+    <ion-label position="stacked" >Estado Civil</ion-label>
+    <ion-radio-group [(ngModel)]="estadoCivil">
+  
+      <ion-item>
+        <ion-label>Soltero</ion-label>
+        <ion-radio slot="start" value="soltero"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Casado</ion-label>
+        <ion-radio slot="start" value="casado"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Divorciado</ion-label>
+        <ion-radio slot="start" value="divorciado"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+
+  <ion-item *ngIf="!(estadoCivil==='soltero' || estadoCivil==null)">
+    <ion-checkbox slot="start"></ion-checkbox>
+    <ion-label>Familia Numerosa</ion-label>
+  </ion-item>-->
+  
+  <ion-button [disabled]="desactivado">Botón</ion-button>
+
+
+</ion-content>
+

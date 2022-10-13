@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Práctica 1 - Botones y cajas de texto
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Práctica 1 - Botones y cajas de texto</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+
+    <!--Al iniciarse aparecerá una caja de texto y un botón. 
+      Al pulsarse el botón y haberse introducido algo en la caja de texto 
+      se mostrará debajo una segunda caja de texto y un segundo botón. 
+      Igualmente, se deshabilitará el primer botón y la primera caja de texto.-->
+
+      <ion-item disabled="{{isDisabled}}">
+        <ion-input type="text" id="t1" [(ngModel)]="texto" style="background-color: black; 
+        color: white"></ion-input>
+        <ion-button expand="block" (click)="accion()">botón</ion-button>
+      </ion-item>
+
+      <!--Al pulsarse el segundo botón y haberse introducido algo en la segunda 
+        caja de texto se mostrará debajo una tercera caja de texto y un tercer botón. 
+        Igualmente, se deshabilitará el segundo botón y la segunda caja de texto.
+-->
+      
+      <ion-item *ngIf="desplegar==true" disabled="{{isDisabled2}}">
+          <ion-input type="text" [(ngModel)]="texto2" style="background-color: black;
+          color: white"></ion-input> 
+          <ion-button expand="block" (click)="accion()">botón2</ion-button>
+      </ion-item>
+
+      <!--Al pulsarse el tercer botón y haberse introducido algo en la tercera caja 
+        de texto se deshabilitará el tercer botón y la tercera caja de texto-->
+
+      <ion-item *ngIf="desplegar2==true" disabled="{{isDisabled3}}">
+        <ion-input type="text"[(ngModel)]="texto3" style="background-color: black;
+        color: white"></ion-input> 
+        <ion-button expand="block" (click)="accion()">botón3</ion-button>
+    </ion-item>
+
+    
+  </div>
+</ion-content>

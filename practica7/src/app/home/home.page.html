@@ -1,0 +1,77 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header>
+    
+    <ion-radio-group *ngIf="estudios==null" [(ngModel)]="estudios">
+  
+      <ion-item *ngIf="eso==false" (click)="accion()">
+        <ion-label>ESO</ion-label>
+        <ion-radio slot="start" value="eso"></ion-radio>
+      </ion-item>
+  
+      <ion-item *ngIf="ciclo==false" (click)="accion()">
+        <ion-label>Ciclo</ion-label>
+        <ion-radio slot="start" value="ciclo"></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
+
+    <!-- Eso -->
+
+    <ion-radio-group *ngIf="estudios=='eso'" [(ngModel)]="estudiosEso">
+  
+      <ion-item (click)="accion2()">
+        <ion-label>1º eso</ion-label>
+        <ion-radio slot="start" value="eso"></ion-radio>
+      </ion-item>
+  
+      <ion-item (click)="accion2()">
+        <ion-label>2º eso</ion-label>
+        <ion-radio slot="start" value="2eso"></ion-radio>
+      </ion-item>
+
+      <ion-item (click)="accion2()">
+        <ion-label>3º eso</ion-label>
+        <ion-radio slot="start" value="3eso"></ion-radio>
+      </ion-item>
+
+      <ion-item (click)="accion2()">
+        <ion-label>repite eso</ion-label>
+        <ion-checkbox [(ngModel)]="repite"  slot="start"></ion-checkbox>
+      </ion-item>
+
+      <ion-button [disabled]="desactivado" (click)="boton1()">Aceptar</ion-button>
+
+    </ion-radio-group>
+
+    <!-- Ciclo -->
+
+    <ion-radio-group *ngIf="estudios=='ciclo'" [(ngModel)]="estudiosCiclo">
+  
+      <ion-list>
+        <ion-item (click)="accion3()">
+          <ion-select placeholder="ciclo">
+            <ion-select-option value="dam">DAM</ion-select-option>
+            <ion-select-option value="daw">DAW</ion-select-option>
+            <ion-select-option value="asir">ASIR</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+      <ion-button [disabled]="desactivado">Aceptar</ion-button>
+
+    </ion-radio-group>
+
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "pruebasInterfaces",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
