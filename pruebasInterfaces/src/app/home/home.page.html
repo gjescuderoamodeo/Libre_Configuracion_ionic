@@ -183,20 +183,26 @@
 </ion-list>
 -->
 
-<ion-list>
+<!--<ion-list>
   <ion-item>
     <ion-select [(ngModel)]="frutaElegida" (ionChange)="cambiaSelect()" placeholder="Select all fruits that apply" [multiple]="true">
       <ion-select-option *ngFor="let frutas of fruta" [value]="frutas"> {{ frutas }} </ion-select-option>
-      <!--<ion-span *ngFor="let frutas of fruta">
+      <ion-span *ngFor="let frutas of fruta">
 
       </ion-span>-->
       <!--<ion-select-option value="apples">Apples</ion-select-option>
       <ion-select-option value="oranges">Oranges</ion-select-option>
-      <ion-select-option value="bananas">Bananas</ion-select-option>-->
+      <ion-select-option value="bananas">Bananas</ion-select-option>
     </ion-select>
   </ion-item>
-</ion-list>
+</ion-list>-->
 
+
+<!--<ion-button (click)="presentAlert()">Click Me</ion-button>-->
+
+<ion-button (click)="presentAlert()">Click Me</ion-button>
+<p>{{ handlerMessage }}</p>
+<p>{{ roleMessage }}</p>
 
 </div>
 </ion-content>
