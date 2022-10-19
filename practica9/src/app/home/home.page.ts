@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { producto } from './producto';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -16,13 +17,58 @@ export class HomePage {
 
   productos = [];
   productosEscogidos = [];
+  productosEscogidos2 = [];
 
-  constructor() {
+  handlerMessage = '';
+  roleMessage = '';
+
+  constructor(private alertController: AlertController) {
     this.productos.push(this.P1);
     this.productos.push(this.P2);
     this.productos.push(this.P3);
     this.productos.push(this.P4);
     this.productos.push(this.P5);
   }
+
+  escogidos(){
+    console.log(this.productosEscogidos);
+
+    for(let x in this.productosEscogidos){
+      for(let y in this.productosEscogidos){
+        if(x==y){
+          this.productosEscogidos2.push(y);
+        }
+      }
+    }
+
+  }
+
+    async presentAlert() {
+      const alert = await this.alertController.create({
+        header: 'Desea Borrarlo?',
+        //buttons: ['OK'],
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: (data) => {
+              console.log(data);
+            },
+          },
+          {
+            text: 'OK',
+            role: 'confirm',
+            handler: (data) => {
+              console.log(data);
+            },
+          },
+        ],
+      });
+  
+      await alert.present();
+    }
+  
+  
+
 
 }

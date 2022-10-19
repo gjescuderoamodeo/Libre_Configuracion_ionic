@@ -10,15 +10,18 @@
 
   <div id="container">
     
-    <ion-select placeholder="Lista de productos" [multiple]="true" [(ngModel)]='productosEscogidos'>
+    <ion-select placeholder="Lista de productos" [multiple]="true" [(ngModel)]='productosEscogidos' (click)="escogidos()">
       <span *ngFor="let producto of productos">
-        <ion-select-option>{{producto.mostrar()}}</ion-select-option>
+        <ion-select-option value="{{producto.cod}}" >{{producto.mostrar()}}</ion-select-option>
       </span>     
     </ion-select>
 
     <ion-list>
       <ion-item *ngFor="let producto of productosEscogidos">
         <ion-label>{{producto}}</ion-label>
+        <ion-label>
+          <ion-button (click)="presentAlert()">Borrar</ion-button>
+      </ion-label>
       </ion-item>
     </ion-list>
 
