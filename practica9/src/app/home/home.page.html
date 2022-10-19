@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Practica 9
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div id="container">
+    
+    <ion-select placeholder="Lista de productos" [multiple]="true" [(ngModel)]='productosEscogidos'>
+      <span *ngFor="let producto of productos">
+        <ion-select-option>{{producto.mostrar()}}</ion-select-option>
+      </span>     
+    </ion-select>
+
+    <ion-list>
+      <ion-item *ngFor="let producto of productosEscogidos">
+        <ion-label>{{producto}}</ion-label>
+      </ion-item>
+    </ion-list>
+
+
+
+  </div>
+</ion-content>
