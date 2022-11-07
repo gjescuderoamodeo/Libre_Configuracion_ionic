@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ciudad.nombre}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="container">
+    <ion-list *ngFor="let hotel of hoteles">
+      <ion-item onclick="valoracionClick()">
+        <ion-label>{{hotel.nombre}}</ion-label>    
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

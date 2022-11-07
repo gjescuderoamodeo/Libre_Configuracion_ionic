@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      practica14
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Ciudades</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-list *ngFor="let ciudad of ciudades">
+      <ion-item (click)="ciudadClick(ciudad.ciudad)">
+        <ion-label>{{ciudad.ciudad}}</ion-label>    
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
