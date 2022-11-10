@@ -1,0 +1,121 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      P15
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">P15</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="alumnado.nombre" style="background-color: black;
+      color: white" placeholder="Nombre"></ion-input> 
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="alumnado.apellidos" style="background-color: black;
+      color: white" placeholder="apellidos"></ion-input> 
+    </ion-item>    
+
+    <ion-item>
+      <ion-input type="number" [(ngModel)]="alumnado.edad" style="background-color: black;
+      color: white" placeholder="edad alumno" min=1></ion-input> 
+    </ion-item>
+
+    <ion-item *ngIf="edad>=18">
+      <ion-input type="text" [(ngModel)]="alumnado.dni" style="background-color: black;
+       color: white" placeholder="DNI"></ion-input>  
+    </ion-item>
+
+    <ion-item *ngIf="alumnado.edad>=18">
+      
+      
+
+      <ion-checkbox slot="start" [(ngModel)]="alumnado.trabajo"></ion-checkbox>
+      <ion-label>Trabaja?</ion-label>
+
+      <ion-radio-group [(ngModel)]="alumnado.estado">  
+
+        <ion-item>
+          <ion-label>soltero</ion-label>
+          <ion-radio slot="start" value="soltero"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>casado</ion-label>
+          <ion-radio slot="start" value="casado"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>divorciado</ion-label>
+          <ion-radio slot="start" value="divorciado"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>viudo</ion-label>
+          <ion-radio slot="start" value="viudo"></ion-radio>
+        </ion-item>
+  
+      </ion-radio-group>
+
+    </ion-item>
+
+
+
+    <ion-item *ngIf="alumnado.edad<18">
+      <ion-input type="text" [(ngModel)]="alumnado.dniP" style="background-color: black;
+       color: white" placeholder="DNIPadre"></ion-input> 
+
+      <ion-input type="text" [(ngModel)]="alumnado.dniM" style="background-color: black;
+        color: white" placeholder="DNIMadre"></ion-input> 
+
+      
+     
+    
+    </ion-item>
+
+    <ion-item *ngIf="alumnado.edad<18">
+      <ion-input type="text" [(ngModel)]="alumnado.apellidosP" style="background-color: black;
+      color: white" placeholder="Apellidos Padre"></ion-input> 
+
+      <ion-input type="text" [(ngModel)]="alumnado.apellidosM" style="background-color: black;
+        color: white" placeholder="Apellidos Madre"></ion-input>   
+    </ion-item>
+
+
+    
+    <ion-radio-group [(ngModel)]="alumnado.genero">  
+
+      <ion-item>
+        <ion-label>hombre</ion-label>
+        <ion-radio slot="start" value="hombre"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Mujer</ion-label>
+        <ion-radio slot="start" value="mujer"></ion-radio>
+      </ion-item>      
+
+    </ion-radio-group>
+
+    <ion-button *ngIf="alumnado.genero!=null && alumnado.nombre!='' && alumnado.apellidos!='' 
+    && alumnado.edad>0 && alumnado.dni!='' && alumnado.estado!=''" routerLink="/pagina2" routerDirection="forward" 
+    (click)="Pagina2()">Aceptar</ion-button>
+
+    <ion-button *ngIf="alumnado.genero!='' && alumnado.nombre!='' && alumnado.apellidos!='' 
+    && alumnado.edad>0 && alumnado.dniP!=null && alumnado.dniM!=''" routerLink="/pagina2" routerDirection="forward" 
+    (click)="Pagina2()">Aceptar</ion-button>
+
+    
+
+
+  </div>
+</ion-content>
