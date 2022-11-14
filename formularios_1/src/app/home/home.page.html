@@ -31,6 +31,18 @@
   </ion-select>
   </ion-item>
   <ion-item>
+
+    <div formGroupName="matching_passwords">
+      <ion-item>
+      <ion-label position="floating" color="primary">Password</ion-label>
+      <ion-input type="text" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-item>
+      <ion-label position="floating" color="primary">Confirm Password</ion-label>
+      <ion-input type="text" formControlName="confirmPassword"></ion-input>
+      </ion-item>
+    </div>
+
   <ion-label color="primary">I accept terms and conditions</ion-label>
   <ion-checkbox color="primary" formControlName="terms"></ion-checkbox>
   </ion-item>
