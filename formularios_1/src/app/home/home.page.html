@@ -42,10 +42,13 @@
       <ion-input type="text" formControlName="confirmPassword"></ion-input>
       </ion-item>
     </div>
-
-  <ion-label color="primary">I accept terms and conditions</ion-label>
-  <ion-checkbox color="primary" formControlName="terms"></ion-checkbox>
   </ion-item>
-  <ion-button color="primary" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Submit data</ion-button>
-  </form> 
+  <ion-item>
+  <ion-label color="primary">I accept terms and conditions</ion-label>
+  <ion-checkbox color="primary" formControlName="terms"></ion-checkbox>    
+</ion-item>
+<ion-item>
+<ion-button color="primary" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Submit data</ion-button>
+</ion-item>
+</form> 
   </ion-content>

@@ -31,9 +31,7 @@ export class HomePage implements OnInit{
         }, (formGroup: FormGroup) => {
         return this.confirmPassword(formGroup);
         });
-    }
-
-    
+    }   
 
 
     ngOnInit() {
@@ -44,7 +42,7 @@ export class HomePage implements OnInit{
       ];
       this.validations_form = this.formBuilder.group({
         username: new FormControl('', Validators.compose([
-          this.validUsername,
+          this.usuarioRepetido,
           Validators.maxLength(25),
           Validators.minLength(5),
           Validators.pattern('^[a-zA-Z]{1}[a-zA-Z0-9]+$'),
@@ -86,9 +84,9 @@ onSubmit(values){
   this.navCtrl.navigateForward('/user', navigationExtras);
   }
 
-  validUsername(fc: FormControl){
+  usuarioRepetido(fc: FormControl){
     if(fc.value.toLowerCase() === "abc123" || fc.value.toLowerCase() === "cba321"){
-            return ({validUsername: true});
+            return ({usuarioRepetido: true});
     } else {
                  return (null);
     }
