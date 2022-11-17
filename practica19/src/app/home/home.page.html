@@ -115,6 +115,8 @@
 
   -->
 
+  <!--*ngIf="validations_form.get('apellidos').value"-->
+
   <ion-content padding class="form-content">
     <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
     <ion-item>
@@ -129,8 +131,13 @@
     <ion-label position="floating" color="primary">Edad</ion-label>
     <ion-input type="number" formControlName="age"></ion-input>
     </ion-item>    
+
+    <ion-item *ngIf="validations_form.get('age').value>=18">
+      <ion-input type="text" formControlName="dni" placeholder="DNI"></ion-input>  
+    </ion-item>
+
   <ion-item>
-  <ion-button color="primary" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Submit data</ion-button>
+  <ion-button color="primary" class="submit-btn" expand="block" type="submit">Submit data</ion-button>
   </ion-item>
   </form> 
     </ion-content>
