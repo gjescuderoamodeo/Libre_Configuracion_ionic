@@ -16,6 +16,18 @@ export class HomePage implements OnInit {
   estadosCivil: Array<string>;
   matching_passwords_group: FormGroup;
 
+  validation_messages = {
+    'nombre': [
+    { type: 'required', message: 'Nombre es requerido.' }
+    ],
+    'apellidos': [
+      { type: 'required', message: 'Apellidos es requerido.' }
+      ],
+    'apellidosPadre': [
+      { type: 'required', message: 'Apellidos Padre es requerido.' }
+      ],   
+    };
+
 
 
   constructor(private fb: FormBuilder,
