@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Partidos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <form [formGroup]="validations_form">
+
+  <!--fecha-->
+  <ion-item>
+    <ion-label>Fecha</ion-label>
+     <!--<ion-datetime display-format="d:mm" picker-format="d:mm " value="1990-02-19T"></ion-datetime>-->
+     <input type="date" formControlName="date"/>
+  </ion-item>
+
+  <!--equipo local-->
+  <ion-item>
+    <ion-label position="floating" color="primary">Equipo local</ion-label>
+    <ion-select cancelText="Cancel" okText="OK">
+      <ion-select-option *ngFor="let equipo of equipos" formControlName="local" [value]="equipo.equipo">{{equipo.equipo}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!--equipo local-->
+  <ion-item>
+    <ion-label position="floating" color="primary">Equipo visitante</ion-label>
+    <ion-select cancelText="Cancel" okText="OK">
+      <ion-select-option *ngFor="let equipo of equipos" formControlName="visitante" [value]="equipo.equipo">{{equipo.equipo}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!--botón submit-->
+  <ion-button color="primary" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">
+    Aceptar
+  </ion-button>
+
+</form>
+
+</ion-content>
