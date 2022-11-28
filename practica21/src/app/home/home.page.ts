@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import {usuario} from '../modelo/usuario';
@@ -12,9 +12,9 @@ import {usuario} from '../modelo/usuario';
 })
 export class HomePage implements OnInit{
 
-  validations_form: FormGroup | undefined;
-  usuario:usuario = new usuario();
-  dni_correcto: FormGroup;
+  validations_form: FormGroup;
+  //usuario:usuario = new usuario();
+  //dni_correcto: FormGroup;
 
   validation_messages = {
     'dni': [
@@ -22,14 +22,25 @@ export class HomePage implements OnInit{
     { type: 'minlength', message: 'dni must be at least 9 characters long.' },
     { type: 'maxlength', message: 'dni cannot be more than 9 characters long.' },
     { type: 'pattern', message: 'Your dni must contain only 9 numbers and 1 letter.' },
-    { type: 'validUsername', message: 'Your username has already been taken.' }
     ],
     };
 
 
   constructor( public formBuilder: FormBuilder,
     private navCtrl: NavController) {
-      this.dni_correcto = new FormGroup({
+      this.validations_form = this.formBuilder.group({
+        dni: new FormControl('', Validators.compose([
+          Validators.maxLength(9),
+          Validators.pattern('(^\s$)|^[0-9]{8}[A-Z]{1}$'),
+          Validators.required,
+          this.confirmDni
+          ])),       
+      });
+
+
+
+
+      /*this.dni_correcto = new FormGroup({
         dni: new FormControl('', Validators.compose([
           Validators.maxLength(9),
           Validators.minLength(9),
@@ -38,17 +49,25 @@ export class HomePage implements OnInit{
         ]))
         }, (formGroup: FormGroup) => {
         return this.confirmDni(formGroup);
-        });
+        });*/
     }   
 
+    /*formularioNoValido(): ValidatorFn {
+
+      return (formGroup: FormGroup) => {
+        const dni: string = formGroup.get('dni').value;
+        //en otro caso se valida
+        return null;
+      };
+    }*/
+
     ngOnInit() {      
-      this.validations_form = this.formBuilder.group({
+      /*this.validations_form = this.formBuilder.group({
         dni: this.confirmDni,   
       iban: new FormControl('', Validators.required)
-      });
+      });*/
       }
 
-    
 
     confirmDni(fg: FormGroup){
     var dni=fg.controls['dni'].value  
@@ -82,21 +101,21 @@ export class HomePage implements OnInit{
 
     
    
-/*onSubmit(values){
-  console.log(values);
+onSubmit(/*values*/){
+  //console.log(values);
   
-  this.usuario.dni=values.dni;
-  this.usuario.iban=values.username;
+  //this.usuario.dni=values.dni;
+  //this.usuario.iban=values.username;
 
   let navigationExtras: NavigationExtras = {
   queryParams: {
-  user: JSON.stringify(this.usuario),
-  usuario: this.usuario,
+  //user: JSON.stringify(this.usuario),
+  //usuario: this.usuario,
   numero: 3
   }
   };
   this.navCtrl.navigateForward('/user', navigationExtras);
-  }*/ 
+  }
   
   
 }

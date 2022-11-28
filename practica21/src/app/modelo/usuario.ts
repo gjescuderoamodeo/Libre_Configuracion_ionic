@@ -1,8 +1,6 @@
 export class usuario {
-    dni:String | undefined;
-    iban:String | undefined;
   
-  
-    constructor() {
+    constructor(dni:String,
+      iban:String) {
     }
   }
