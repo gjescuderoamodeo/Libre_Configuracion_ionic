@@ -8,7 +8,16 @@ import { NavController } from '@ionic/angular';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage{
+export class HomePage implements OnInit{
+
+  furbo: FormGroup; 
+  validations_form: FormGroup; 
+
+  constructor(
+    public formBuilder: FormBuilder,
+    private navCtrl: NavController
+  ) { }
+  
 
   equipos = [
     {"equipo":"Alaves", "jugadores": ["Fernando Pacheco","Antonio Sivera","Aritz Castro","Tachi"," Rubén Duarte","Rodrigo Ely","Víctor Laguardia"]},
@@ -18,16 +27,21 @@ export class HomePage{
     {"equipo":"Cadiz", "jugadores":["Jeremías Ledesma","David Gil","Juan Flere","Sergio González"," Fali","Marcos Mauro","Carlos Akapo"]}    
     ]
 
-  validations_form: FormGroup;  
+  
 
-  constructor(private fb: FormBuilder,
-    private navCtrl: NavController) {
-      this.validations_form = this.fb.group({
-        local: new FormControl('', Validators.required), 
-        date: new FormControl('', Validators.required),   
-        visitante: new FormControl('', Validators.required),     
-      });
-    }
+  ngOnInit() {
+
+    this.furbo = new FormGroup({
+      local: new FormControl('', Validators.compose([
+        Validators.required
+      ]))
+    });
+
+    this.validations_form = this.formBuilder.group({
+      furbo: this.furbo,
+    });
+    
+  }
 
 
 

@@ -1,7 +1,5 @@
 {
-  "name": "practica21",
-  "integrations": {
-    "capacitor": {}
-  },
+  "name": "practica11-form",
+  "integrations": {},
   "type": "angular"
 }

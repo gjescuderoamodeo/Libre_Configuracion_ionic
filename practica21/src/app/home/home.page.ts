@@ -1,121 +1,117 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import {usuario} from '../modelo/usuario';
-
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit {
 
   validations_form: FormGroup;
-  //usuario:usuario = new usuario();
-  //dni_correcto: FormGroup;
-
+  cuenta: FormGroup;
   validation_messages = {
-    'dni': [
-    { type: 'required', message: 'dni is required.' },
-    { type: 'minlength', message: 'dni must be at least 9 characters long.' },
-    { type: 'maxlength', message: 'dni cannot be more than 9 characters long.' },
-    { type: 'pattern', message: 'Your dni must contain only 9 numbers and 1 letter.' },
+    'DNI': [
+      { type: 'validDNI', message: 'La letra no corresponde con los números' },
+      { type: 'required', message: 'DNI es requerido' },
+      { type: 'minlength', message: 'DNI debe tener 9 caracteres' },
+      { type: 'maxlength', message: 'DNI debe tener 9 caracteres' },
+      { type: 'pattern', message: 'DNI debe tener el patrón correspondiente' },
     ],
-    };
-
-
-  constructor( public formBuilder: FormBuilder,
-    private navCtrl: NavController) {
-      this.validations_form = this.formBuilder.group({
-        dni: new FormControl('', Validators.compose([
-          Validators.maxLength(9),
-          Validators.pattern('(^\s$)|^[0-9]{8}[A-Z]{1}$'),
-          Validators.required,
-          this.confirmDni
-          ])),       
-      });
-
-
-
-
-      /*this.dni_correcto = new FormGroup({
-        dni: new FormControl('', Validators.compose([
-          Validators.maxLength(9),
-          Validators.minLength(9),
-          Validators.pattern('(^\s$)|^[0-9]{8}[A-Z]{1}$'),
-          Validators.required
-        ]))
-        }, (formGroup: FormGroup) => {
-        return this.confirmDni(formGroup);
-        });*/
-    }   
-
-    /*formularioNoValido(): ValidatorFn {
-
-      return (formGroup: FormGroup) => {
-        const dni: string = formGroup.get('dni').value;
-        //en otro caso se valida
-        return null;
-      };
-    }*/
-
-    ngOnInit() {      
-      /*this.validations_form = this.formBuilder.group({
-        dni: this.confirmDni,   
-      iban: new FormControl('', Validators.required)
-      });*/
-      }
-
-
-    confirmDni(fg: FormGroup){
-    var dni=fg.controls['dni'].value  
-    var numero, lete, letra;
-    var expresion_regular_dni = /^[XYZ]?\d{5,8}[A-Z]$/;
-
-    dni = dni.toUpperCase();
-
-    if(expresion_regular_dni.test(dni) === true){
-        numero = dni.substr(0,dni.length-1);
-        numero = numero.replace('X', 0);
-        numero = numero.replace('Y', 1);
-        numero = numero.replace('Z', 2);
-        lete = dni.substr(dni.length-1, 1);
-        numero = numero % 23;
-        letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
-        letra = letra.substring(numero, numero+1);
-        if (letra != lete) {
-            //alert('Dni erroneo, la letra del NIF no se corresponde');
-            return null;
-        }else{
-            //alert('Dni correcto');
-            return ({confirmDni:true});
-        }
-    }else{
-        //alert('Dni erroneo, formato no válido');
-        return null;
-    }
-      }
-
-
-    
-   
-onSubmit(/*values*/){
-  //console.log(values);
-  
-  //this.usuario.dni=values.dni;
-  //this.usuario.iban=values.username;
-
-  let navigationExtras: NavigationExtras = {
-  queryParams: {
-  //user: JSON.stringify(this.usuario),
-  //usuario: this.usuario,
-  numero: 3
-  }
+    'IBAN': [
+      { type: 'required', message: 'IBAN es requerido' },
+      { type: 'minlength', message: 'IBAN debe tener 24 caracteres' },
+      { type: 'maxlength', message: 'IBAN debe tener 24 caracteres' },
+      { type: 'pattern', message: 'Introduce un IBAN válido' }
+    ],
+    'cuenta': [
+      { type: 'validIBAN', message: 'El DNI no tiene asociado este IBAN' }
+    ]
   };
-  this.navCtrl.navigateForward('/user', navigationExtras);
+  
+  //los dni son ficticios. Se han obtenido en esta web:  https://generadordni.es/#dni
+  arrayDniCuenta = {
+    '65508205L':'ES1234567890123456789012',
+    '12979007S':'ES1234567890123456789013',
+    '52045931J':'ES1234567890123456789014',
+};
+
+
+
+  constructor(
+    public formBuilder: FormBuilder,
+    private navCtrl: NavController
+  ) { }
+
+  ngOnInit() {
+
+
+    this.cuenta = new FormGroup({
+      DNI: new FormControl('', Validators.compose([
+        this.validDNI,
+        Validators.maxLength(9),
+        Validators.minLength(9),
+        Validators.pattern('[0-9]{8,8}[A-Za-z]'),
+        Validators.required
+      ])),
+      IBAN: new FormControl('', Validators.compose([
+        Validators.maxLength(24),
+        Validators.minLength(24),
+        Validators.pattern('ES[0-9]{22}'),
+        Validators.required,
+      ]))
+    }, (formGroup: FormGroup) => {
+      return this.validIBAN(formGroup);
+    });
+
+    this.validations_form = this.formBuilder.group({
+      cuenta: this.cuenta,
+    });
   }
-  
-  
-}
+
+  onSubmit(values) {
+    console.log(values);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        user: JSON.stringify(values),
+      }
+    };
+    this.navCtrl.navigateForward('/datos', navigationExtras);
+  }
+
+
+
+  validDNI(fc: FormControl) {
+    var letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+    var numeros = fc.value.substring(0, fc.value.length - 1);
+    var numero = numeros % 23;
+    var letraCorr = letras.charAt(numero);
+    var letra = fc.value.substring(8, 9);
+    if (letraCorr != letra) {
+      return ({ validDNI: true });
+    } else {
+      return (null);
+    }
+  }
+
+  validIBAN(fg: FormGroup) {
+    var iban = fg.controls['IBAN'].value
+    var dni = fg.controls['DNI'].value
+    //se recorre el array asociativo que relaciona dnis con ibans
+    //si encuentra que la clave (dni) es igual a la introducida
+    //y que el iban asociado a dicha clave es igual al introducido
+    //devuelve null y la validación es correcta
+    //si se sale del array significa que no lo ha encontrado
+    //devuelve true y la validación es no incorrecta
+    for (var clave in this.arrayDniCuenta){
+        console.log(clave);
+        console.log(this.arrayDniCuenta[clave]);
+        if(clave==dni && this.arrayDniCuenta[clave]==iban)  //encontrado
+          return null;
+    }
+    return ({ validIBAN: true });
+  }
+
+}//end_class
