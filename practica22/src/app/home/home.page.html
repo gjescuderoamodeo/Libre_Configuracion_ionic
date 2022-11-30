@@ -14,22 +14,22 @@
   <ion-item>
     <ion-label>Fecha</ion-label>
      <!--<ion-datetime display-format="d:mm" picker-format="d:mm " value="1990-02-19T"></ion-datetime>-->
-     <input type="date" formControlName="date"/>
+     <input type="date"/>
   </ion-item>
 
   <!--equipo local-->
   <ion-item>
     <ion-label position="floating" color="primary">Equipo local</ion-label>
-    <ion-select cancelText="Cancel" okText="OK">
-      <ion-select-option *ngFor="let equipo of equipos" formControlName="local" [value]="equipo.equipo">{{equipo.equipo}}</ion-select-option>
+    <ion-select cancelText="Cancel" okText="OK" formControlName="local">
+      <ion-select-option *ngFor="let equipo of equipos"  [value]="equipo.equipo">{{equipo.equipo}}</ion-select-option>
     </ion-select>
   </ion-item>
 
   <!--equipo local-->
   <ion-item>
     <ion-label position="floating" color="primary">Equipo visitante</ion-label>
-    <ion-select cancelText="Cancel" okText="OK">
-      <ion-select-option *ngFor="let equipo of equipos" formControlName="visitante" [value]="equipo.equipo">{{equipo.equipo}}</ion-select-option>
+    <ion-select cancelText="Cancel" okText="OK" formControlName="visitante">
+      <ion-select-option *ngFor="let equipo of equipos"  [value]="equipo.equipo">{{equipo.equipo}}</ion-select-option>
     </ion-select>
   </ion-item>
 

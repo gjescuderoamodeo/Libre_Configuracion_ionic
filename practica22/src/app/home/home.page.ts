@@ -11,21 +11,19 @@ import { NavController } from '@ionic/angular';
 export class HomePage{
 
   validations_form: FormGroup; 
-  equipos:Object[];
+  equipos= [
+    {"equipo":"Alaves", "jugadores": ["Fernando Pacheco","Antonio Sivera","Aritz Castro","Tachi"," Rubén Duarte","Rodrigo Ely","Víctor Laguardia"]},
+    
+    {"equipo":"Atletico Madrid", "jugadores": ["Ivo Grbic","Jan Oblak","Miguel San Román","José Giménez"," Manuel Sánchez","Renan Lodi","Stefan Savic"]},
+    
+    {"equipo":"Cadiz", "jugadores":["Jeremías Ledesma","David Gil","Juan Flere","Sergio González"," Fali","Marcos Mauro","Carlos Akapo"]}    
+    ];
   constructor(private fb: FormBuilder,
     private navCtrl: NavController) {
-      this.equipos = [
-        {"equipo":"Alaves", "jugadores": ["Fernando Pacheco","Antonio Sivera","Aritz Castro","Tachi"," Rubén Duarte","Rodrigo Ely","Víctor Laguardia"]},
-        
-        {"equipo":"Atletico Madrid", "jugadores": ["Ivo Grbic","Jan Oblak","Miguel San Román","José Giménez"," Manuel Sánchez","Renan Lodi","Stefan Savic"]},
-        
-        {"equipo":"Cadiz", "jugadores":["Jeremías Ledesma","David Gil","Juan Flere","Sergio González"," Fali","Marcos Mauro","Carlos Akapo"]}    
-        ];
         
       this.validations_form = this.fb.group({
       local: new FormControl('', Validators.required),
       visitante: new FormControl('', Validators.required),
-      fecha: new FormControl('', Validators.required),
     }, { validators: [this.futbolNoValido()] });
   }
   
@@ -37,11 +35,11 @@ export class HomePage{
 
       return (formGroup: AbstractControl): ValidationErrors | null => {
         const local= formGroup.get('local') as FormControl;
-        const dni = formGroup.get('visitante') as FormControl;
-  
+        const visitante = formGroup.get('visitante') as FormControl;
+        console.log(local+ "" + visitante)
         
-        if (local) {
-            return { isValid: true };
+        if (local===visitante) {
+          return { isValid: false};           
         }
         
         //en otro caso se valida
