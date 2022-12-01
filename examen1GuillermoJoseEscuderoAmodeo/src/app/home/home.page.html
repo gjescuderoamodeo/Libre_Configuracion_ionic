@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Examen1
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,104 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Partidos</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!--Lista Partidos-->
+  <div *ngIf="!editar">
+  <div *ngIf="!nuevoP">
+  <ion-item  *ngFor="let partido of partidos2">
+    <div  (click)="edit(partido)">
+    <ion-list>{{partido.equipo1}} - {{partido.resultado1}}</ion-list>
+    <ion-label></ion-label>
+    <ion-list>{{partido.equipo2}} - {{partido.resultado2}}</ion-list>
   </div>
+  </ion-item>
+  </div>
+
+  <!--checkbox-->
+  <ion-item>
+    <ion-label color="primary">Nuevo Partido</ion-label>
+    <ion-checkbox [(ngModel)]="nuevoP" color="primary"></ion-checkbox>
+  </ion-item>
+  </div>
+
+  <!--formulario-->
+  <div padding class="form-content" *ngIf="nuevoP">
+  <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
+      
+  <!--equipo local-->
+  <ion-item>
+    <ion-label position="floating" color="primary">Local</ion-label>
+    <ion-input type="text" formControlName="local"></ion-input>
+  </ion-item>
+
+  <!--equipo local-->
+  <ion-item>
+    <ion-label position="floating" color="primary">Visitante</ion-label>
+    <ion-input type="text" formControlName="visitante"></ion-input>
+  </ion-item>
+
+  <!--botón submit-->
+  <ion-button color="primary" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">
+    SUBMIT DATA
+  </ion-button>
+
+  </form>
+  </div>
+
+  <!--EDITAR-->
+  <div *ngIf="editar">
+    <div *ngIf="!editando1">
+    <ion-item>
+      {{equipo1}}
+      <ion-label>
+        -{{resultado1}}  
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="mas1(1)">+1</ion-button><ion-button (click)="mas1(2)">+2</ion-button><ion-button (click)="mas1(3)">+3</ion-button><ion-button (click)="editar1()">EDITAR</ion-button>
+    </ion-item>
+    </div>
+
+    <div *ngIf="editando1">
+      <ion-item>
+        <ion-label position="floating" color="primary">Puntos {{equipo1}}</ion-label>
+        <ion-input type="number" [(ngModel)]="numedit1" min="0"></ion-input>
+      </ion-item>
+      <ion-item>
+       <ion-button (click)="editar1end()">EDITAR</ion-button>
+      </ion-item>
+    </div>
+
+    <div *ngIf="!editando2">
+    <ion-item>
+      {{equipo2}}
+      <ion-label>
+        -{{resultado2}}
+      </ion-label>      
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="mas2(1)">+1</ion-button><ion-button (click)="mas2(2)">+2</ion-button><ion-button (click)="mas2(3)">+3</ion-button><ion-button (click)="editar2()">EDITAR</ion-button>
+    </ion-item>
+    </div>
+
+
+    <div *ngIf="editando2">
+      <ion-item>
+        <ion-label position="floating" color="primary">Puntos {{equipo2}}</ion-label>
+        <ion-input type="number" [(ngModel)]="numedit2" min="0"></ion-input>
+      </ion-item>
+      <ion-item>
+       <ion-button (click)="editar2end()">EDITAR</ion-button>
+      </ion-item>
+    </div>
+
+    <ion-button color="primary" (click)="edit2()">
+      Volver
+    </ion-button>
+
+  </div>
+  
 </ion-content>
