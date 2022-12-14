@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Guillermo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Guillermo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid class="hidden-lg hidden-md">
+    <ion-row *ngFor="let reserva of reservas">
+      <ion-card>
+      <ion-card-content>      
+        <ion-col>
+          <b>{{reserva.nombre}}</b> <ion-icon name='trash' style="float: right;" (click)="borrar(reserva)"></ion-icon>
+        </ion-col>
+        <ion-row>
+          {{reserva.ciudad}}
+        </ion-row>
+        <ion-row>
+          {{reserva.pais}}
+        </ion-row>
+        <ion-row>
+          Entrada: {{reserva.entrada}}
+        </ion-row>
+        <ion-row>
+          Salida: {{reserva.salida}}
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    </ion-row>
+    
+  </ion-grid>
+</ion-content>
