@@ -1,0 +1,7 @@
+{
+  "name": "practica27_sidemenu",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
