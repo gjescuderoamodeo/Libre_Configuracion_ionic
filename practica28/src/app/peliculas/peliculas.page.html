@@ -1,0 +1,32 @@
+<ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      <ion-title>
+        Peliculas
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid class="hidden-lg hidden-md">
+    <ion-row *ngFor="let pelicula of peliculas">
+      <ion-card>
+      <ion-card-content>      
+        <ion-col>
+          <b>{{pelicula.nombre}}</b> <ion-icon name='trash' style="float: right;" (click)="presentAlert(pelicula)"></ion-icon>
+        </ion-col>
+        <ion-row>
+          {{pelicula.Director}}
+        </ion-row>
+        <ion-row>
+          {{pelicula.Anno}}
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    </ion-row>
+    
+  </ion-grid>
+
+</ion-content>

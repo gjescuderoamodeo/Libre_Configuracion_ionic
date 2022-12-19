@@ -20,9 +20,9 @@ export class HomePage {
 
   borrar(reserva:Reserva){
     let index = this.reservas.indexOf(reserva, 0);
-if (index > -1) {
-   this.reservas.splice(index, 1);
-}
+    if (index > -1) {
+      this.reservas.splice(index, 1);
+    }
   }
 
 }

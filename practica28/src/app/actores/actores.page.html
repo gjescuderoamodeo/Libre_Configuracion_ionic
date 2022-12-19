@@ -1,0 +1,31 @@
+<ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      <ion-title>
+        Actores
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid class="hidden-lg hidden-md">
+    <ion-row *ngFor="let actor of actores">
+      <ion-card>
+      <ion-card-content>      
+        <ion-col>
+          <b>{{actor.nombre}}</b> <ion-icon name='trash' style="float: right;" (click)="presentAlert(actor)"></ion-icon>
+        </ion-col>
+        <ion-row>
+          {{actor.nacionalidad}}
+        </ion-row>
+        <ion-row>
+          {{actor.Anno}}
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    </ion-row>
+    
+  </ion-grid>
+</ion-content>
