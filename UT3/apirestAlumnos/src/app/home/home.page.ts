@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { ApiServiceProvider } from 'src/app/providers/api-service/api-service';
 import { Alumno } from '../modelo/Alumno';
 
@@ -10,8 +11,10 @@ import { Alumno } from '../modelo/Alumno';
 export class HomePage implements OnInit{
 
   public alumnos=new Array<Alumno>();
+  limite = 10
 
-  constructor(private apiService: ApiServiceProvider) {
+  constructor(private apiService: ApiServiceProvider,
+    public alertController:AlertController) {
   }
 
 /*
@@ -26,7 +29,33 @@ Si ha ido mal el acceso (por ejemplo si no hemos lanzado jsonServer) se coge el 
 
 
   ngOnInit(): void {
-    this.apiService.getAlumnos()
+    this.apiService.getAlumnos(this.limite)
+      .then( (alumnos:Alumno[])=> {
+          this.alumnos=alumnos;
+          console.log(this.alumnos);
+      })
+      .catch( (error:string) => {
+          console.log(error);
+      });
+  }
+
+  siguiente(){
+    this.limite+=10
+
+    this.apiService.getAlumnos(this.limite)
+      .then( (alumnos:Alumno[])=> {
+          this.alumnos=alumnos;
+          console.log(this.alumnos);
+      })
+      .catch( (error:string) => {
+          console.log(error);
+      });
+  }
+
+  anterior(){
+    this.limite-=10
+
+    this.apiService.getAlumnos(this.limite)
       .then( (alumnos:Alumno[])=> {
           this.alumnos=alumnos;
           console.log(this.alumnos);
@@ -55,4 +84,197 @@ Si el borrado ha ido mal muestro por consola el error que ha ocurrido.
     });
   }//end_eliminar_alumno
 
+  /*
+
+  este método comentado permite modificar los datos del alumno mediante un alertController
+
+  */
+
+  async modificarAlumno(indice: number) {
+
+    let alumno = this.alumnos[indice];
+
+    const alert = await this.alertController.create({
+
+      header: 'Modificar',
+
+      inputs: [
+
+        {
+
+          name: 'first_name',
+
+          type: 'text',
+
+          value: alumno.first_name,
+
+          placeholder: 'first_name'
+
+        },
+
+        {
+
+          name: 'last_name',
+
+          type: 'text',
+
+          id: 'last_name',
+
+          value: alumno.last_name,
+
+          placeholder: 'last_name'
+
+        },
+
+        {
+
+          name: 'email',
+
+          id: 'email',
+
+          type: 'text',
+
+          value: alumno.email,
+
+          placeholder: 'email'
+
+        },
+
+        {
+
+          name: 'gender',
+
+          id: 'gender',
+
+          type: 'text',
+
+          value: alumno.gender,
+
+          placeholder: 'gender'
+
+        },
+
+        {
+
+          name: 'avatar',
+
+          value: alumno.avatar,
+
+          type: 'url',
+
+          placeholder: 'avatar'
+
+        },
+
+        {
+
+          name: 'address',
+
+          value: alumno.address,
+
+          type: 'text',
+
+          placeholder: 'address'
+
+        },
+
+        {
+
+          name: 'city',
+
+          value: alumno.city,
+
+          type: 'text',
+
+          placeholder: 'city'
+
+        },
+
+        {
+
+          name: 'postalCode',
+
+          value: alumno.postalCode,
+
+          type: 'text',
+
+          placeholder: 'postalCode'
+
+        }
+
+      ],
+
+      buttons: [
+
+        {
+
+          text: 'Cancel',
+
+          role: 'cancel',
+
+          cssClass: 'secondary',
+
+          handler: () => {
+
+            console.log('Confirm Cancel');
+
+          }
+
+        }, {
+
+          text: 'Ok',
+
+          handler: (data) => {
+
+            console.log(data);
+
+            var alumnoModificado: Alumno = new Alumno( 
+
+              alumno.id,
+
+              data['gender'],
+
+              data['first_name'],
+
+              data['last_name'],
+
+              data['email'],
+
+              data['avatar'],
+
+              data['address'],
+
+              data['city'],
+
+              data['postalCode']);
+
+            this.apiService.modificarAlumno(alumnoModificado)
+
+              .then((alumno: Alumno) => {
+
+                this.alumnos[indice] = alumno;
+
+              })
+
+              .catch((error: string) => {
+
+                console.log(error);
+
+              });
+
+            console.log('Confirm Ok');
+
+          }
+
+        }
+
+      ]
+
+    });
+
+    await alert.present();
+
+  }//end_modificarAlumno
+
 }//end_class
+

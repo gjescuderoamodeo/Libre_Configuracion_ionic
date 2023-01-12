@@ -12,14 +12,25 @@
     <ion-grid>
       <ion-row>
         <ion-col size=8>{{alumno.last_name}}, {{alumno.first_name}}</ion-col>
-        <ion-col size=2></ion-col>
+        <ion-col size=1></ion-col>
+        <ion-col size=1>
+          <button ion-button icon-only (click)="modificarAlumno(indice)" danger>
+            <ion-icon name="create-outline"></ion-icon>
+          </button>
+        </ion-col>
         <ion-col size=1>
           <button ion-button icon-only (click)="eliminarAlumno(indice)" danger>
-            <ion-icon name="trash"></ion-icon>
+            <ion-icon name="trash-outline"></ion-icon>
           </button>
         </ion-col>
         <ion-col size=1></ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid>   
   </ion-card>
+  <ion-button *ngIf="limite>10" style="float:left" (click)="anterior()">
+    Anterior
+  </ion-button>
+  <ion-button style="float:right" (click)="siguiente()">
+    Siguiente
+  </ion-button>
 </ion-content>

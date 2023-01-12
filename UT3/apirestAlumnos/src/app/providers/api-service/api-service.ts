@@ -20,9 +20,9 @@ export class ApiServiceProvider {
     Si el acceso ha ido mal devolvemos el mensaje de error que no llega mediante reject.
     */
 
-    getAlumnos(): Promise<Alumno[]> {
+    getAlumnos(limite:number): Promise<Alumno[]> {
         let promise = new Promise<Alumno[]>((resolve, reject) => {
-            this.http.get(this.URL + "/alumnos").toPromise()
+            this.http.get(this.URL + "/alumnos"+"?_page="+(limite-10)+"&_limit="+10).toPromise()
                 .then((data: any) => {
                     let alumnos = new Array<Alumno>();
                     data.forEach((alumno: Alumno) => {
@@ -59,5 +59,25 @@ export class ApiServiceProvider {
         });
         return promise;
     }//end_eliminar_alumno
+
+    modificarAlumno(nuevosDatosAlumno: Alumno): Promise<Alumno> {
+        let promise = new Promise<Alumno>((resolve, reject) => {
+            var header = { "headers": { "Content-Type": "application/json" } };
+            let datos = JSON.stringify(nuevosDatosAlumno);
+            this.http.put(this.URL + "/alumnos/" + nuevosDatosAlumno.id,
+                datos,
+                header).toPromise().then(
+                    (data: any) => { // Success
+                        let alumno: Alumno;
+                        alumno = data;
+                        resolve(alumno);
+                    }
+                )
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_modificar_alumno
 
 }//end_class
