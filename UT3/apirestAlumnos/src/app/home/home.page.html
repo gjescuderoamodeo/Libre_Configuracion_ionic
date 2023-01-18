@@ -7,6 +7,13 @@
 </ion-header>
 
 <ion-content>
+
+
+  <ion-toolbar>
+    <ion-button expand="full" (click)="busqueda()">
+      <ion-icon side="center" name="search"></ion-icon>
+    </ion-button>
+  </ion-toolbar>  
  
   <ion-card *ngFor="let alumno of alumnos; let indice=index;">
     <ion-grid>
@@ -27,10 +34,17 @@
       </ion-row>
     </ion-grid>   
   </ion-card>
-  <ion-button *ngIf="limite>10" style="float:left" (click)="anterior()">
-    Anterior
-  </ion-button>
-  <ion-button style="float:right" (click)="siguiente()">
-    Siguiente
-  </ion-button>
+
+  <ion-toolbar>
+    <ion-button *ngIf="limite>10" expand="full"  side="left" (click)="anterior()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-button *ngIf="limite>10" expand="full"  side="center" (click)="home()">
+      <ion-icon name="home"></ion-icon>
+    </ion-button>
+    <ion-button side="right" expand="full" (click)="siguiente()">
+      <!--siguiente--><ion-icon name="arrow-forward-outline"></ion-icon>
+    </ion-button>    
+  </ion-toolbar>
+
 </ion-content>

@@ -29,36 +29,87 @@ Si ha ido mal el acceso (por ejemplo si no hemos lanzado jsonServer) se coge el 
 
 
   ngOnInit(): void {
-    this.apiService.getAlumnos(this.limite)
-      .then( (alumnos:Alumno[])=> {
-          this.alumnos=alumnos;
-          console.log(this.alumnos);
-      })
-      .catch( (error:string) => {
-          console.log(error);
-      });
+    this.recargarPag()
   }
 
   siguiente(){
     this.limite+=10
+    this.recargarPag()    
+  }
 
-    this.apiService.getAlumnos(this.limite)
-      .then( (alumnos:Alumno[])=> {
-          this.alumnos=alumnos;
-          console.log(this.alumnos);
-      })
-      .catch( (error:string) => {
-          console.log(error);
-      });
+  home(){
+    this.limite=10
+    this.recargarPag()
   }
 
   anterior(){
     this.limite-=10
+    this.recargarPag() 
+  }
 
-    this.apiService.getAlumnos(this.limite)
+  async busqueda(){
+    const alert = await this.alertController.create({
+      header: 'Buscar por nombre y apellidos',
+      buttons: [
+        {
+          text: 'Cancelar',
+          cssClass: 'alert-button-cancel',
+        },
+        {
+          text: 'Buscar',
+          handler: (alertData) => {
+            //console.log(alertData)            
+            //this.presentAlert(this.apiService.findAlumnnos(alertData.nombre, alertData.apellidos))
+            this.apiService.findAlumnnos(alertData.nombre, alertData.apellidos)
+              .then( (alumnos:Alumno[])=> {
+                this.presentAlert(alumnos)              
+              })
+              .catch( (error:string) => {
+                console.log(error);                
+      });
+
+          },
+          cssClass: 'alert-button-confirm',
+        },
+      ],      
+      inputs: [
+        {
+          name: 'nombre',
+          placeholder: 'Nombre',
+        },
+        {
+          name: 'apellidos',
+          placeholder: 'Apellidos',
+        },        
+      ],
+    });
+
+    await alert.present();  
+  }
+
+  async presentAlert(alumno:Alumno[]) {
+    if(alumno.length>0){
+    
+    const alert = await this.alertController.create({
+      header: "nombre: " + alumno[0].first_name + " apellidos: " + alumno[0].last_name,
+      buttons: ['OK'],
+    });
+    await alert.present();
+    }else{
+      const alert = await this.alertController.create({
+        header: "No se encuentra ese usuario",
+        buttons: ['OK'],
+      });
+      await alert.present();
+    }
+  }
+  
+
+  recargarPag(){
+      this.apiService.getAlumnos(this.limite)
       .then( (alumnos:Alumno[])=> {
           this.alumnos=alumnos;
-          console.log(this.alumnos);
+          //console.log(this.alumnos);
       })
       .catch( (error:string) => {
           console.log(error);
@@ -226,7 +277,7 @@ Si el borrado ha ido mal muestro por consola el error que ha ocurrido.
 
           handler: (data) => {
 
-            console.log(data);
+            //console.log(data);
 
             var alumnoModificado: Alumno = new Alumno( 
 

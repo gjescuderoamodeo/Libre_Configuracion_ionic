@@ -22,7 +22,7 @@ export class ApiServiceProvider {
 
     getAlumnos(limite:number): Promise<Alumno[]> {
         let promise = new Promise<Alumno[]>((resolve, reject) => {
-            this.http.get(this.URL + "/alumnos"+"?_page="+(limite-10)+"&_limit="+10).toPromise()
+            this.http.get(this.URL + "/alumnos?_page="+(limite-10)+"&_limit="+10).toPromise()
                 .then((data: any) => {
                     let alumnos = new Array<Alumno>();
                     data.forEach((alumno: Alumno) => {
@@ -79,5 +79,23 @@ export class ApiServiceProvider {
         });
         return promise;
     }//end_modificar_alumno
+
+    findAlumnnos(nombre:string, apellidos:string,){
+        let promise = new Promise<Alumno[]>((resolve, reject) => {
+            this.http.get(this.URL + "/alumnos?first_name="+nombre+"&last_name="+apellidos).toPromise()
+                .then((data: any) => {
+                    let alumnos = new Array<Alumno>();
+                    data.forEach((alumno: Alumno) => {
+                        console.log(alumno);
+                        alumnos.push(alumno);
+                    });
+                    resolve(alumnos);
+                })
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_find_alumno
 
 }//end_class
