@@ -11,7 +11,7 @@ import {ciudad} from '../clases/ciudad';
 })
 export class HomePage {  
 
-  private ciudades:any[] = [{"ciudad":"Matagalpa",
+  public ciudades:any[] = [{"ciudad":"Matagalpa",
   "hoteles":[{"nombre":"Tazzy",
   "valoraciones":[]},    
   {"nombre":"Eare","valoraciones":[{"usuario":"nchicken0","comentario":"Cloned didactic analyzer"},{"usuario":"mbrandolini1","comentario":"Polarised mission-critical throughput"}]}]},

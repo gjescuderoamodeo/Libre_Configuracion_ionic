@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>municipios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-input [(ngModel)]="municipio" placeholder="Buscar municipio"></ion-input>
+    <ion-button (click)="buscarMunicipio()" shape="round">Buscar <ion-icon name="search-outline"></ion-icon></ion-button>   
+  </ion-item>
+  
+
+  <ion-list *ngFor="let municipio of municipiosF">
+    <ion-item (click)="goToPagina2(municipio)">
+      {{municipio.municipio}}
+    </ion-item>
+  </ion-list>
+
+</ion-content>
