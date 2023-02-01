@@ -11,9 +11,16 @@
   <ion-card *ngFor="let estadoCielo of estadosCielo">
     <ion-grid>
       <ion-row>
-        <ion-col size=4></ion-col>
-        <ion-col size=4>{{estadoCielo.periodo}}</ion-col>
-        <ion-col size=4>
+        <ion-col size=3>Tª max</ion-col>
+        <ion-col size=3>Tª mín</ion-col>
+        <ion-col size=3>Horario</ion-col>
+        <ion-col size=3>Cielo</ion-col>
+      </ion-row>
+      <ion-row>        
+        <ion-col size=3>{{Temperatura.maxima}}</ion-col>
+        <ion-col size=3>{{Temperatura.minima}}</ion-col>
+        <ion-col size=3>{{estadoCielo.periodo}}</ion-col>
+        <ion-col size=3>
           <ion-img style="width:50%"  src="../../assets/icon/{{estadoCielo.value}}_g.png" [title]="estadoCielo.descripcion"></ion-img>
         </ion-col>
       </ion-row>
