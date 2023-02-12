@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Factura } from 'src/app/modelo/Interfaces';
+import { Cliente, Factura } from 'src/app/modelo/Interfaces';
 
 @Injectable()
 export class ApiServiceProvider {
@@ -29,6 +29,24 @@ export class ApiServiceProvider {
         });
         return promise;
     }//end_getFacturas
+
+    getClientes(): Promise<Cliente[]> {
+        let promise = new Promise<Cliente[]>((resolve, reject) => {
+            this.http.get(this.URL + "/clientes?_sort=cliente&_order=asc").toPromise()
+                .then((data: any) => {
+                    let clientes = new Array<Factura>();
+                    data.forEach((cliente: Factura) => {
+                        //console.log(factura);
+                        clientes.push(cliente);
+                    });
+                    resolve(clientes);
+                })
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_getClientes
 
     
 
