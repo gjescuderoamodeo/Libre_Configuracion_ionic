@@ -33,6 +33,9 @@ export class HomePage implements OnInit{
     this.navCtrl.navigateForward('/add-factura');
   }//end_onSubmit
 
+  redondear(number:number){
+    return Math.round(number);
+  }
 
 
 }
