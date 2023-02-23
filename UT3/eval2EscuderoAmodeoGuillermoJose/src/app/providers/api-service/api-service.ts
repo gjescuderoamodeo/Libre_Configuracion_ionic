@@ -39,36 +39,49 @@ export class ApiServiceProvider {
         return promise;
     }//end_getAlumnos
 
-    getUsuario2(id: number) {
-        let usuarios:Usuario;
-        let promise = new Promise<Usuario>((resolve, reject) => {
-            this.http.get(this.URL + "/usuarios?id=" + id).toPromise()
+    getUsuario2() {
+        let usuariosP: number[] = []
+        usuariosP=this.getUsuariosConPrestamos();
+        console.log(usuariosP.length);
+        var usuarioS= new Array<Usuario>()
+
+        for(let i=0;i<usuariosP.length;i++){
+            let promise = new Promise<Usuario[]>((resolve, reject) => {
+                this.http.get(this.URL + "/usuarios?id=" + usuariosP[i]).toPromise()
                 .then((data: any) => {
+                    let usuarios = new Array<Usuario>();
                     data.forEach((usuario: Usuario) => {
-                        usuarios=usuario;
+                        usuarioS.push(usuario);
                     });
                     resolve(usuarios);
                 })
                 .catch((error: Error) => {
                     reject(error.message);
                 });
-        });
-        return promise; //????????
+            });
+        }
+
+        
+        return usuarioS; 
     }//end_getAlumnos
 
     getUsuariosConPrestamos() {
-        let usuariosPrestamos= new Array<Usuario>();
-        let libros = new Array<Libro>();
+        //let usuariosPrestamos= new Array<Usuario>();
+        let libros: number[] = []
 
         //primero consultas libros
-        let promise = new Promise<Usuario[]>((resolve, reject) => {
+        let promise = new Promise<Libro[]>((resolve, reject) => {
             this.http.get(this.URL + "/libros").toPromise()
                 .then((data: any) => {
                     data.forEach((libro: Libro) => {
                         //console.log(libro.idUsuarioPrestamo)
                         if (libro.idUsuarioPrestamo != undefined) {
+                            if (!libros.includes(libro.idUsuarioPrestamo)) {
+                                libros.push(libro.idUsuarioPrestamo);
+                            }
+
                             //obtengo usuario por id usuarioPrestamo
-                            let user = this.getUsuario(libro.idUsuarioPrestamo) 
+                            /*let user = this.getUsuario(libro.idUsuarioPrestamo) 
                             .then((datos: Usuario[]) => {
                                 //console.log(datos[0])  
                                 if (!usuariosPrestamos.includes(datos[0])) {
@@ -82,14 +95,16 @@ export class ApiServiceProvider {
                                 usuariosPrestamos.push(user);
                             }*/
                         }
-                        libros.push(libro);
+                        //libros.push(libro);
                     });
-                    resolve(usuariosPrestamos);
+                    //resolve(libros);
                 })
                 .catch((error: Error) => {
                     reject(error.message);
-                });
+                });                
         });
+
+        return libros; 
 
 
         //ahora consultas idUsuario de los libros
@@ -108,7 +123,7 @@ export class ApiServiceProvider {
         });*/
 
 
-        return usuariosPrestamos;
+       // return usuariosPrestamos;
     }//end_getAlumnos
 
     getLibrobyUsuario(id: number) {
