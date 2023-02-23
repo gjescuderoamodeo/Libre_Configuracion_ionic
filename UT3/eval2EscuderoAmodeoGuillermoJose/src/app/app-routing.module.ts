@@ -11,6 +11,14 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'usuarios',
+    loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+  },
+  {
+    path: 'usuarios-prestamos',
+    loadChildren: () => import('./usuarios-prestamos/usuarios-prestamos.module').then( m => m.UsuariosPrestamosPageModule)
+  },
 ];
 
 @NgModule({
