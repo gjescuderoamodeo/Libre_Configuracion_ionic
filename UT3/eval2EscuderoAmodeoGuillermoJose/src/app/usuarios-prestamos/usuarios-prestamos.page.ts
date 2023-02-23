@@ -13,30 +13,42 @@ import { NavController } from '@ionic/angular';
 })
 export class UsuariosPrestamosPage implements OnInit {
 
-  public usuarios= new Array<Usuario>();
-  public libros:any;
+  public usuarios = new Array<Usuario>();
+  public libros: any;
 
   constructor(private apiService: ApiServiceProvider,
     public alertController: AlertController,
     public modalController: ModalController,
     public toastController: ToastController,
-    private navCtrl: NavController) { 
+    private navCtrl: NavController) {
 
-      this.usuarios=this.apiService.getUsuariosConPrestamos()
-      console.log(this.usuarios);
+    //this.usuarios=this.apiService.getUsuario2();
+    //console.log(this.usuarios);
 
-      /*this.apiService.getLibros()
-              .then((datos: Libro[]) => {
-                console.log(datos)
-                this.libros=datos;                
-              }) */      
+    this.apiService.getLibros()
+      .then((datos: Libro[]) => {
+        console.log(datos)    
+        this.libros = datos
+        console.log(this.libros)
+      })
+      .catch((error: string) => {
+        console.log(error);
+      });
 
-    }
+    console.log(this.libros)
+
+    /*this.apiService.getLibros()
+            .then((datos: Libro[]) => {
+              console.log(datos)
+              this.libros=datos;                
+            }) */
+
+  }
 
   ngOnInit() {
   }
 
-  volver(){
+  volver() {
     this.navCtrl.navigateBack('/');
   }
 
