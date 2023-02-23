@@ -23,7 +23,7 @@ export class UsuariosPrestamosPage implements OnInit {
     private navCtrl: NavController) { 
 
       this.usuarios=this.apiService.getUsuariosConPrestamos()
-      console.log(this.usuarios[0]);
+      console.log(this.usuarios);
 
       /*this.apiService.getLibros()
               .then((datos: Libro[]) => {
