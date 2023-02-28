@@ -22,31 +22,28 @@ export class UsuariosPrestamosPage implements OnInit {
     public toastController: ToastController,
     private navCtrl: NavController) {
 
-    //this.usuarios=this.apiService.getUsuario2();
-    //console.log(this.usuarios);
-
-    this.apiService.getLibros()
-      .then((datos: Libro[]) => {
-        console.log(datos)    
-        this.libros = datos
-        console.log(this.libros)
-      })
-      .catch((error: string) => {
-        console.log(error);
-      });
-
-    console.log(this.libros)
-
-    /*this.apiService.getLibros()
-            .then((datos: Libro[]) => {
-              console.log(datos)
-              this.libros=datos;                
-            }) */
 
   }
 
   ngOnInit() {
+    this.obtenerUsuariosConPrestamo();
   }
+
+  async obtenerUsuariosConPrestamo() {
+    try {
+      this.usuarios = await this.apiService.obtenerUsuariosConPrestamo();
+    } catch (error) {
+      console.error(error);
+      // mostrar mensaje de error al usuario
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'No se pudo obtener los usuarios con préstamo',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+  }
+
 
   volver() {
     this.navCtrl.navigateBack('/');

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Libro, Usuario } from 'src/app/modelo/Interfaces';
+import { Interfaces, Libro, Usuario } from 'src/app/modelo/Interfaces';
+import { map, Observable, switchMap } from 'rxjs';
 
 
 @Injectable()
@@ -20,6 +21,23 @@ export class ApiServiceProvider {
     Si todo ha ido bien convertimos el array de objetos Json que nos llega a un array de objetos alumnos, y lo devolvemos con resolve.
     Si el acceso ha ido mal devolvemos el mensaje de error que no llega mediante reject.
     */
+
+    async obtenerUsuariosConPrestamo(): Promise<Usuario[]> {
+        const respuesta = await this.http.get(`${this.URL}/usuarios`).toPromise();
+        if (!respuesta) {
+          return [];
+        }
+        const usuarios: Usuario[] = respuesta as Usuario[];
+        const respuestaLibros = await this.http.get(`${this.URL}/libros`).toPromise();
+        if (!respuestaLibros) {
+          return usuarios;
+        }
+        const libros: Libro[] = respuestaLibros as Libro[];
+        const usuariosConPrestamo = usuarios.filter(usuario => {
+          return libros.some(libro => libro.idUsuarioPrestamo === usuario.id);
+        });
+        return usuariosConPrestamo;
+      }
 
     getUsuario(id: number) {
         let promise = new Promise<Usuario[]>((resolve, reject) => {
