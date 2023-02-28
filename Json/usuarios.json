@@ -1,0 +1,36 @@
+{
+  "usuarios": [
+    {
+      "idUsuario": 1,
+      "nombre": "Juan",
+      "password": "contraseña",
+      "observaciones": "observaciones",
+      "tareaList": [
+        {
+          "idTarea": 1,
+          "descripcion": "Tarea 1"
+        },
+        {
+          "idTarea": 2,
+          "descripcion": "Tarea 2"
+        }
+      ]
+    },
+    {
+      "idUsuario": 2,
+      "nombre": "Pedro",
+      "password": "contraseña",
+      "observaciones": "observaciones",
+      "tareaList": [
+        {
+          "idTarea": 3,
+          "descripcion": "Tarea 3"
+        },
+        {
+          "idTarea": 4,
+          "descripcion": "Tarea 4"
+        }
+      ]
+    }
+  ]
+}
